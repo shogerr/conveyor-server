@@ -1,0 +1,113 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: Conveyor
+  description: Provides access to resources.
+
+basePath: "/v1"
+
+schemes:
+- https
+- http
+
+definitions:
+  software:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        pattern: "^[a-zA-Z0-9- ]+$"
+      type:
+        type: string
+        pattern: "^[a-zA-Z0-9- ]+$"
+      id:
+        type: string
+  configuration:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        pattern: "^[a-zA-Z0-9- ]+$"
+      type:
+        type: string
+        pattern: "^[a-zA-Z0-9- ]+$"
+  software-filters:
+    - name: name
+      in: query
+      description: Filter by software name
+      required: false
+      type: string
+    - name: type
+      in: query
+      description: Filter by software type
+      required: false
+      type: string
+parameters:
+  softwareName:
+    name: softwareName
+    in: path
+    required: true
+    type: string
+  softwareId:
+    name: softwareId
+    in: path
+    required: true
+    type: integer
+
+paths:
+  /software:
+    get:
+      parameters:
+        $ref: "#/definitions/software-filters"
+      responses:
+        default:
+          description: Returns qualifying software
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/software"
+    post:
+      parameters:
+        - name: software
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/software"
+      responses:
+        200:
+          description: Software added
+          schema:
+            type: object
+  /software/{softwareName}:
+    parameters:
+      - $ref: "#/parameters/softwareName"
+    get:
+      responses:
+        200:
+          description: "Ok!"
+          schema:
+            type: object
+  /configurations:
+    post:
+      parameters:
+        - name: configurations
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/configuration"
+      responses:
+        200:
+          description: Software added
+          schema:
+            type: object
+  /software/{:id}:
+    parameters:
+      - $ref: "#/parameters/softwareId"
+    get:
+      responses:
+        200:
+          description: "Ok!"
+          schema:
+            type: object

@@ -1,0 +1,24 @@
+{
+  "name": "conveyor-server",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "dev": "set NODE_ENV=development &&  nodemon app.js",
+    "swagger": "node tasks/generate_swagger.js"
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.4.1",
+    "mongoose": "^5.8.4",
+    "mongoose-to-swagger": "^1.0.0",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "swagger-express-middleware": "^2.0.5"
+  }
+}
