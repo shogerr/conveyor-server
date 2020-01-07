@@ -27,6 +27,7 @@ router.get('/:id', function(req, res) {
   const collection = req.app.locals.mongoDB.collection('software')
   collection.findOne({ _id: new ObjectId(req.params.id) })
     .then((result) => {
+      result.id = result._id
       res.status(200).json(result)
     })
 })
