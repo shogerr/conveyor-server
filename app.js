@@ -40,8 +40,8 @@ swagger('swagger.yaml', app, (_, middleware) => {
           middleware.files()
   );
 
+  const router = require('./routes/index.js')
 
-  const router = require('./routes')
   app.use(middleware.parseRequest(router))
   app.use(middleware.validateRequest(router))
   app.use(middleware.metadata())

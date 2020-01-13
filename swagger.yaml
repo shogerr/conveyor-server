@@ -33,6 +33,18 @@ definitions:
       type:
         type: string
         pattern: "^[a-zA-Z0-9- ]+$"
+  network-file:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        pattern: "^[a-zA-Z0-9-!@#$%^&*()_+=.]+$"
+      path:
+        type: string
+        pattern: "^[a-zA-Z0-9-!@#$%^&*()_+=.\\/]+$"
+      directory:
+        type: boolean
   software-filters:
     - name: name
       in: query
@@ -80,6 +92,15 @@ paths:
           description: Software added
           schema:
             type: object
+  /software/{:id}:
+    parameters:
+      - $ref: "#/parameters/softwareId"
+    get:
+      responses:
+        200:
+          description: "Ok!"
+          schema:
+            type: object
   /software/{softwareName}:
     parameters:
       - $ref: "#/parameters/softwareName"
@@ -100,14 +121,5 @@ paths:
       responses:
         200:
           description: Software added
-          schema:
-            type: object
-  /software/{:id}:
-    parameters:
-      - $ref: "#/parameters/softwareId"
-    get:
-      responses:
-        200:
-          description: "Ok!"
           schema:
             type: object

@@ -13,6 +13,9 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   const collection = req.app.locals.mongoDB.collection('software')
 
+  //console.log(req.swagger.api.definitions.software)
+  req.body.id = req.body.id_
+
   collection.insertOne(req.body)
     .then((result) => {
       res.status(201).json({
@@ -23,9 +26,9 @@ router.post('/', function(req, res) {
 
 router.put('/:id', function(req, res) {
   const collection = req.app.locals.mongoDB.collection('software')
-  req.body.id = result._id
   collection.findOne({ _id: new ObjectId(req.params.id) }, req.body)
     .then((result) => {
+      result.id = result._id
       console.log(result)
       res.status(200).json(result)
     })
@@ -33,7 +36,7 @@ router.put('/:id', function(req, res) {
 
 router.get('/:id', function(req, res) {
   const collection = req.app.locals.mongoDB.collection('software')
-  req.body.id = req.body._id
+  req.body._id = 
   collection.findOne({ _id: new ObjectId(req.params.id) })
     .then((result) => {
       result.id = result._id
